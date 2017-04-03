@@ -3,13 +3,6 @@ import random
 import fractions
 import music21
 
-def GWN(n, begin, end):
-    #Generate White Noise - return list of random n elements from range from begin to end
-    GWN_answer = []
-    for i in range(n):
-        GWN_answer.append(random.choice(range(begin, end)))
-    return copy.deepcopy(GWN_answer)
-
 def GBN(n, begin, end, startpoint, difference):
     #Generate Brown Noise - return list of n random elements from range from begin to end, but every adjoining elements can differs at most about difference and startpoint is a first element.
     GBN_answer = [startpoint]
@@ -98,9 +91,14 @@ print('metre bars')
 metre = input()
 bars = int(input())
 
+print('rhythm_step melody_step')
+
+rhythm_step = int(input())
+melody_step = int(input())
+
 rhythms = GRL(metre)
 
-rhythm_changes = GBN(bars, 0, len(rhythms), len(rhythms) // 2, 5)
+rhythm_changes = GBN(bars, 0, len(rhythms), len(rhythms) // 2, rhythm_step)
 
 rhythm_line = []
 
@@ -115,7 +113,7 @@ for i in rhythm_line:
 
 scale_1 = [music21.note.Note(x, quarterLength = 0.25) for x in ["E3", "G3", "A3", "B3", "D4", "E4", "G4", "A4", "B4", "D5", "E5", "G5", "A5", "B5", "D6"]]
 
-melody = GBN(len(rhythm_line_final), 0, len(scale_1), 5, 3)
+melody = GBN(len(rhythm_line_final), 0, len(scale_1), 5, melody_step)
 
 stream_1 = music21.stream.Stream()
 
