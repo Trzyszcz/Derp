@@ -53,3 +53,20 @@ def GER(a, b):
         while GER_answer[0] == '0':
             GER_answer = GER_answer[1:] + GER_answer[0]
         return GER_answer
+
+def TrEu(rhythm, base_duration):
+    #Translate "binary" rhythm scheme to music21 notation
+    TrEu_answer = []
+    bench = base_duration
+    for i in range(1, len(rhythm)):
+        if rhythm[i] == '1':
+            TrEu_answer.append(bench)
+            bench = base_duration
+        else:
+            bench += base_duration
+    TrEu_answer.append(bench)
+    return TrEu_answer
+
+
+
+
