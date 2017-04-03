@@ -1,5 +1,6 @@
 import copy
 import random
+import fractions
 
 def GWN(n, begin, end):
     #Generate White Noise - return list of random n elements from range from begin to end
@@ -21,6 +22,22 @@ def GBN(n, begin, end, startpoint, difference):
         else:
             GBN_answer.append(value - (2 * step))
     return copy.deepcopy(GBN_answer)
+
+def rotate(lst):
+    rotator = []
+    n = len(lst)
+    rotator.append(lst[n - 1])
+    for i in range(n - 1):
+        rotator.append(lst[i])
+    return copy.deepcopy(rotator) 
+
+def full_rotations(lst):
+    x = [lst]
+    bench = rotate(lst)
+    while not bench == x[0]:
+        x.append(bench)
+        bench = rotate(bench)
+    return copy.deepcopy(x)
 
 def EuRh(a, b):
     #Function helping with euclidean rhythms generation
@@ -65,8 +82,13 @@ def TrEu(rhythm, base_duration):
         else:
             bench += base_duration
     TrEu_answer.append(bench)
-    return TrEu_answer
+    return copy.deepcopy(TrEu_answer)
 
-
-
+def GRL(metre):
+    #Generate Rhyths List - generates list of rhythms in metre
+    metre0 = [int(x) for x in metre.split('/')]
+    GRL_answer = []
+    for i in range(1, metre0[0] + 1):
+        GRL_answer = GRL_answer + full_rotations(TrEu(GER(i, metre0[0]), (4.0 / metre0[1])))
+    return copy.deepcopy(GRL_answer)
 
