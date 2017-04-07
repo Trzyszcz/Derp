@@ -111,6 +111,13 @@ def GRL(metre):
     metre0 = [int(x) for x in metre.split('/')]
     GRL_answer = []
     for i in range(1, metre0[0] + 1):
-        GRL_answer = GRL_answer + full_rotations(TrEu(GER(i, metre0[0]), (4.0 / metre0[1])))
+        GRL_answer.append(full_rotations(TrEu(GER(i, metre0[0]), (4.0 / metre0[1]))))
     return copy.deepcopy(GRL_answer)
+
+def piano_range(scale):
+    answer_pr = []
+    for i in range(1, 8):
+        for note in scale:
+            answer_pr.append(note + str(i))
+    return copy.deepcopy(answer_pr)
 
