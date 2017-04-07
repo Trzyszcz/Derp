@@ -23,6 +23,28 @@ def GBN(n, begin, end, startpoint, difference):
             GBN_answer.append(value - (2 * step))
     return copy.deepcopy(GBN_answer)
 
+def GPNVM(n, begin, end, difference):
+    #Generate Pink Noise using Voss-McCartney algorithm
+    space = end - begin
+    answer_GPNVM = []
+    dices = []
+    number_of_full_dices = space // difference
+    for i in range(number_of_full_dices):
+        dices.append([random.choice(range(difference + 1)), difference])
+    last_dice = number_of_full_dices % difference
+    if not last_dice == 0:
+        dices.append([random.choice(range(last_dice + 1)), last_dice])
+        number_of_full_dices += 1
+    dice_number = 0
+    for i in range(n):
+        while i % 2 == 0 and dice_number < (number_of_full_dices - 1):
+            i = i // 2
+            dice_number += 1
+        dices[dice_number][0] = random.choice(range(dices[dice_number][1]))
+        answer_GPNVM.append(sum([x[0] for x in dices]))
+        dice_number = 0
+    return copy.deepcopy(answer_GPNVM)
+
 def rotate(lst):
     rotator = []
     n = len(lst)
