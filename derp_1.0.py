@@ -1,21 +1,25 @@
+#!/usr/bin/env python3
+
 import copy
 import random
 import music21
+import sys
 from important_stuff import *
 
-print('metre bars')
+arguments = sys.argv[1:]
 
-metre = input()
-bars = int(input())
+standard_arguments = ['16/16', '100', 'C D# F C A#', '4', '2']
 
-print('scale')
+for i in range(len(arguments)):
+    standard_arguments[i] = arguments[i]
 
-scale_input = input().split()
+metre = standard_arguments[0]
+bars = int(standard_arguments[1])
 
-print('rhythm_step melody_step')
+scale_input = standard_arguments[2].split()
 
-rhythm_step = int(input())
-melody_step = int(input())
+rhythm_step = int(standard_arguments[3])
+melody_step = int(standard_arguments[4])
 
 rhythms = GRL(metre)
 
@@ -34,7 +38,7 @@ for i in rhythm_line:
 
 scale_1 = [music21.note.Note(x, quarterLength = 0.25) for x in piano_range(scale_input)]
 
-melody = GPNVM(len(rhythm_line_final), 0, len(scale_1), melody_step)
+melody = GBN(len(rhythm_line_final), 0, len(scale_1), random.choice(range(len(scale_1))), melody_step)
 
 stream_1 = music21.stream.Stream()
 
