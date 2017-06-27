@@ -116,7 +116,7 @@ def GRL(metre):
 
 def piano_range(scale):
     answer_pr = []
-    for i in range(1, 8):
+    for i in range(2, 8):
         for note in scale:
             answer_pr.append(note + str(i))
     return copy.deepcopy(answer_pr)
